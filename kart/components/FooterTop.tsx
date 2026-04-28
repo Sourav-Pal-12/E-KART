@@ -1,3 +1,4 @@
+
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import React from "react";
 
@@ -43,7 +44,8 @@ const FooterTop = () => {
       {data?.map((item, index) => (
         <div
           key={index}
-          className="flex items-center gap-3 group hover:bg-gray-50 p-4 transition-colors hoverEffect">
+          className="flex items-center gap-3 group hover:bg-gray-50 p-4 
+          transition-colors hoverEffect">
           {item?.icon}
           <div>
             <h3 className="font-semibold text-gray-900 group-hover:text-black hoverEffect">
@@ -58,5 +60,4 @@ const FooterTop = () => {
     </div>
   );
 };
-
 export default FooterTop;

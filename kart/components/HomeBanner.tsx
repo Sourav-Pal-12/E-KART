@@ -23,6 +23,7 @@ const HomeBanner = () => {
         <Image
           src={banner_1}
           alt="banner_1"
+          priority
           className="hidden md:inline-flex w-96"
         />
       </div>

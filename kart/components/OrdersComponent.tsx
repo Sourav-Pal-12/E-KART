@@ -15,10 +15,52 @@ import { useState } from "react";
 import OrderDetailDialog from "./OrderDetailDialog";
 import toast from "react-hot-toast";
 
-const OrdersComponent = ({ orders }: { orders: MY_ORDERS_QUERYResult }) => {
-  const [selectedOrder, setSelectedOrder] = useState<
-    MY_ORDERS_QUERYResult[number] | null
-  >(null);
+type OrderItem = {
+  productId?: string;
+  sanityProductId?: string;
+  name?: string;
+  price?: number;
+  quantity?: number;
+  image?: string;
+};
+
+type MongoOrder = {
+  _id?: string;
+  orderNumber?: string;
+  clerkUserId?: string;
+  customerName?: string;
+  email?: string;
+  products?: OrderItem[];
+  totalPrice?: number;
+  currency?: string;
+  amountDiscount?: number;
+  address?: {
+    state?: string;
+    zip?: string;
+    city?: string;
+    address?: string;
+    name?: string;
+  };
+  status?: string;
+  orderDate?: string;
+  invoice?: {
+    id?: string;
+    number?: string;
+    hosted_invoice_url?: string;
+  };
+  stripeCheckoutSessionId?: string;
+  stripePaymentIntentId?: string;
+  stripeCustomerId?: string;
+};
+
+type Props = {
+  orders: MY_ORDERS_QUERYResult | MongoOrder[] | null | undefined;
+  useMongoDB?: boolean;
+};
+
+const OrdersComponent = ({ orders, useMongoDB = false }: Props) => {
+  const orderList = Array.isArray(orders) ? orders : [];
+  const [selectedOrder, setSelectedOrder] = useState<typeof orderList[0] | null>(null);
   const handleDelete = () => {
     toast.error("Delete method applied for Admin");
   };
@@ -26,7 +68,7 @@ const OrdersComponent = ({ orders }: { orders: MY_ORDERS_QUERYResult }) => {
     <>
       <TableBody>
         <TooltipProvider>
-          {orders.map((order) => (
+          {orderList.map((order) => (
             <Tooltip key={order?.orderNumber}>
               <TooltipTrigger asChild>
                 <TableRow
@@ -97,6 +139,7 @@ const OrdersComponent = ({ orders }: { orders: MY_ORDERS_QUERYResult }) => {
         order={selectedOrder}
         isOpen={!!selectedOrder}
         onClose={() => setSelectedOrder(null)}
+        useMongoDB={useMongoDB}
       />
     </>
   );

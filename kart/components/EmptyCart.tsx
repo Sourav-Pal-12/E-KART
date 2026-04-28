@@ -7,7 +7,8 @@ import Image from "next/image";
 
 export default function EmptyCart() {
   return (
-    <div className="py-10 md:py-20 bg-gradient-to-b from-blue-50 to-white flex items-center justify-center p-4">
+    <div className="py-10 md:py-20 bg-gradient-to-b from-blue-50 to-white 
+                    flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -60,7 +61,9 @@ export default function EmptyCart() {
         <div>
           <Link
             href="/"
-            className="block bg-darkColor/5 border border-darkColor/20 text-center py-2.5 rounded-full text-sm font-semibold tracking-wide hover:border-darkColor hover:bg-darkColor hover:text-white hoverEffect"
+            className="block bg-darkColor/5 border border-darkColor/20 
+            text-center py-2.5 rounded-full text-sm font-semibold tracking-wide
+             hover:border-darkColor hover:bg-darkColor hover:text-white hoverEffect"
           >
             Discover Products
           </Link>

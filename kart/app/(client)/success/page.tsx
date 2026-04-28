@@ -83,5 +83,4 @@ const SuccessPage = () => {
     </Suspense>
   );
 };
-
 export default SuccessPage;

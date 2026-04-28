@@ -5,13 +5,13 @@ import HeaderMenu from "./HeaderMenu";
 import SearchBar from "./SearchBar";
 import CartIcon from "./CartIcon";
 import FavoriteButton from "./FavoriteButton";
-import SignIn from "./SignIn";
 import MobileMenu from "./MobileMenu";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { ClerkLoaded, SignedIn, UserButton } from "@clerk/nextjs";
+import { ClerkLoaded } from "@clerk/nextjs";
 import Link from "next/link";
 import { Logs } from "lucide-react";
 import { getMyOrders } from "@/sanity/queries";
+import AuthUI from "./Auth";
 
 const Header = async () => {
   const user = await currentUser();
@@ -47,10 +47,7 @@ const Header = async () => {
           )}
 
           <ClerkLoaded>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-            {!user && <SignIn />}
+            <AuthUI />
           </ClerkLoaded>
         </div>
       </Container>

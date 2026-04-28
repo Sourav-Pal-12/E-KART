@@ -51,7 +51,10 @@ const CategoryProducts = ({ categories, slug }: Props) => {
           <Button
             onClick={() => handleCategoryChange(item?.slug?.current as string)}
             key={item?._id}
-            className={`bg-transparent border-0 p-0  rounded-none text-darkColor shadow-none hover:bg-shop_orange hover:text-white font-semibold hoverEffect border-b last:border-b-0 transition-colors capitalize ${item?.slug?.current === currentSlug && "bg-shop_orange text-white border-shop_orange"}`}
+            className={`bg-transparent border-0 p-0  rounded-none 
+              text-darkColor shadow-none hover:bg-shop_orange hover:text-white 
+              font-semibold hoverEffect border-b last:border-b-0 transition-colors 
+              capitalize ${item?.slug?.current === currentSlug && "bg-shop_orange text-white border-shop_orange"}`}
           >
             <p className="w-full text-left px-2">{item?.title}</p>
           </Button>
@@ -59,7 +62,8 @@ const CategoryProducts = ({ categories, slug }: Props) => {
       </div>
       <div className="flex-1">
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-10 min-h-80 space-y-4 text-center bg-gray-100 rounded-lg w-full">
+          <div className="flex flex-col items-center justify-center py-10 min-h-80 
+          space-y-4 text-center bg-gray-100 rounded-lg w-full">
             <div className="flex items-center space-x-2 text-blue-600">
               <Loader2 className="w-5 h-5 animate-spin" />
               <span>Product is loading...</span>

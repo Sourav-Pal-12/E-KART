@@ -28,6 +28,7 @@ const AddToCartButton = ({ product, className }: Props) => {
       toast.error("Can not add more than available stock");
     }
   };
+  
   return (
     <div className="w-full h-12 flex items-center">
       {itemCount ? (

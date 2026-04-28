@@ -15,8 +15,46 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import PriceFormatter from "./PriceFormatter";
 
+type MongoProduct = {
+  productId?: string;
+  sanityProductId?: string;
+  name?: string;
+  price?: number;
+  quantity?: number;
+  image?: string;
+};
+
+type MongoOrder = {
+  _id?: string;
+  orderNumber?: string;
+  clerkUserId?: string;
+  customerName?: string;
+  email?: string;
+  products?: MongoProduct[];
+  totalPrice?: number;
+  currency?: string;
+  amountDiscount?: number;
+  address?: {
+    state?: string;
+    zip?: string;
+    city?: string;
+    address?: string;
+    name?: string;
+  };
+  status?: string;
+  orderDate?: string;
+  invoice?: {
+    id?: string;
+    number?: string;
+    hosted_invoice_url?: string;
+  };
+  stripeCheckoutSessionId?: string;
+  stripePaymentIntentId?: string;
+  stripeCustomerId?: string;
+};
+
 interface OrderDetailsDialogProps {
-  order: MY_ORDERS_QUERYResult[number] | null;
+  order: MY_ORDERS_QUERYResult[number] | MongoOrder | null;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -71,10 +109,12 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {order.products?.map((product, index) => (
+            {order.products?.map((product, index) => {
+              const isMongoDB = 'productId' in product || 'sanityProductId' in product;
+              return (
               <TableRow key={index}>
                 <TableCell className="flex items-center gap-2">
-                  {product?.product?.images && (
+                  {!isMongoDB && product?.product?.images ? (
                     <Image
                       src={urlFor(product?.product?.images[0]).url()}
                       alt="productImage"
@@ -82,19 +122,27 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
                       height={50}
                       className="border rounded-sm"
                     />
-                  )}
+                  ) : isMongoDB && product?.image ? (
+                    <Image
+                      src={product.image}
+                      alt="productImage"
+                      width={50}
+                      height={50}
+                      className="border rounded-sm"
+                    />
+                  ) : null}
 
-                  {product?.product && product?.product?.name}
+                  {isMongoDB ? product?.name : product?.product?.name}
                 </TableCell>
                 <TableCell>{product?.quantity}</TableCell>
                 <TableCell>
                   <PriceFormatter
-                    amount={product?.product?.price}
+                    amount={isMongoDB ? product?.price : product?.product?.price}
                     className="text-black font-medium"
                   />
                 </TableCell>
               </TableRow>
-            ))}
+            )})}
           </TableBody>
         </Table>
         <div className="mt-4 text-right flex items-center justify-end">

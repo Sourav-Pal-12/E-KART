@@ -14,10 +14,20 @@ import React from "react";
 const OrdersPage = async () => {
   const { userId } = await auth();
   if (!userId) {
-    return redirect("/");
+    return redirect("/home");
   }
 
-  const orders = await getMyOrders(userId);
+  let orders = await getMyOrders(userId);
+  let useMongoDB = false;
+
+  if (!orders || orders.length === 0) {
+    const { getOrdersFromMongo } = await import("@/lib/mongo-helpers");
+    const mongoOrders = await getOrdersFromMongo(userId);
+    if (mongoOrders && mongoOrders.length > 0) {
+      orders = mongoOrders;
+      useMongoDB = true;
+    }
+  }
 
   return (
     <div>
@@ -50,7 +60,7 @@ const OrdersPage = async () => {
                       <TableHead className="text-center">Action</TableHead>
                     </TableRow>
                   </TableHeader>
-                  <OrdersComponent orders={orders} />
+                  <OrdersComponent orders={orders} useMongoDB={useMongoDB} />
                 </Table>
                 <ScrollBar orientation="horizontal" />
               </ScrollArea>
