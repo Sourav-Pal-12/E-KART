@@ -8,12 +8,10 @@ import Footer from "@/components/Footer";
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={cn("font-sans")}>
-      <body className="font-poppins antialiased">
-      <div className="flex flex-col min-h-screen">
+      <body className="font-poppins antialiased flex flex-col min-h-screen">
         <Header />
-        <main className="flex-1">{children}</main>
+        {children}
         <Footer />
-      </div>
         <Toaster
           position="bottom-right"
           toastOptions={{
