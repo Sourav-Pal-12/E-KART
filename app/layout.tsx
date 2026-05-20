@@ -7,7 +7,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={cn("font-sans")}>
       <body className="font-poppins antialiased">
-        {children}
+       <ClerkProvider>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </div>
         <Toaster
           position="bottom-right"
           toastOptions={{
@@ -17,6 +22,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             },
           }}
         />
+        </ClerkProvider>
       </body>
     </html>
   );
