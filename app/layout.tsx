@@ -1,6 +1,9 @@
 import './globals.css';
 import { Toaster } from "react-hot-toast";
 import { cn } from "@/lib/utils";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { ClerkProvider } from "@clerk/nextjs";
 
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
