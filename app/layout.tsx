@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { cn } from "@/lib/utils";
@@ -5,7 +6,21 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s - E-KART online store",
+    default: "E-KART online store",
+  },
+  description: "E-KART online store, Your one stop shop for all your needs",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en" className={cn("font-sans")}>
       <body className="font-poppins antialiased">
