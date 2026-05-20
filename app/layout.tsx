@@ -1,17 +1,12 @@
 import './globals.css';
 import { Toaster } from "react-hot-toast";
 import { cn } from "@/lib/utils";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={cn("font-sans")}>
-      <body className="font-poppins antialiased flex flex-col min-h-screen">
-        <Header />
+      <body className="font-poppins antialiased">
         {children}
-        <Footer />
         <Toaster
           position="bottom-right"
           toastOptions={{
